@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
 public class Job {
@@ -13,11 +15,21 @@ public class Job {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
-    private String company;
-    private String location;
-    private String description;
-    private Double salary;
+    @NotBlank(message = "Job title is required")
+private String title;
+
+@NotBlank(message = "Company name is required")
+private String company;
+
+@NotBlank(message = "Location is required")
+private String location;
+
+private String description;
+
+@PositiveOrZero(message = "Salary cannot be negative")
+private Double salary;
+
+    
 
     public Job() {
     }

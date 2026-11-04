@@ -5,6 +5,7 @@ import com.hiretrack.service.ApplicationService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/applications")
@@ -20,7 +21,7 @@ public class ApplicationController {
     @PostMapping
     public Application applyForJob(
             @RequestParam Long jobId,
-            @RequestBody Application application) {
+           @Valid @RequestBody Application application) {
 
         return applicationService.applyForJob(
                 jobId,

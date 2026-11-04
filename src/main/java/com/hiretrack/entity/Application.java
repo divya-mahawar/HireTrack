@@ -3,6 +3,8 @@ package com.hiretrack.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Application {
@@ -11,9 +13,12 @@ public class Application {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String applicantName;
+    @NotBlank(message = "Applicant name is required")
+private String applicantName;
 
-    private String email;
+@NotBlank(message = "Email is required")
+@Email(message = "Please enter a valid email address")
+private String email;
 
     private String status = "APPLIED";
 

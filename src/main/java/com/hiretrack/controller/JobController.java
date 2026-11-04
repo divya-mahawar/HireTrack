@@ -5,6 +5,7 @@ import com.hiretrack.service.JobService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/jobs")
@@ -17,7 +18,7 @@ public class JobController {
     }
 
     @PostMapping
-    public Job createJob(@RequestBody Job job) {
+   public Job createJob(@Valid @RequestBody Job job) {
         return jobService.createJob(job);
     }
 
@@ -33,7 +34,7 @@ public class JobController {
 
     @PutMapping("/{id}")
     public Job updateJob(@PathVariable Long id,
-                         @RequestBody Job job) {
+                      @Valid @RequestBody Job job) {
         return jobService.updateJob(id, job);
     }
 
