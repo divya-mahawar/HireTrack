@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import com.hiretrack.exception.JobNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Service
 public class JobService {
@@ -20,9 +22,9 @@ public class JobService {
         return jobRepository.save(job);
     }
 
-    public List<Job> getAllJobs() {
-        return jobRepository.findAll();
-    }
+  public Page<Job> getAllJobs(Pageable pageable) {
+    return jobRepository.findAll(pageable);
+}
 
     public Job getJobById(Long id) {
        return jobRepository.findById(id)
