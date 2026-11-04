@@ -5,6 +5,7 @@ import com.hiretrack.repository.JobRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import com.hiretrack.exception.JobNotFoundException;
 
 @Service
 public class JobService {
@@ -24,8 +25,9 @@ public class JobService {
     }
 
     public Job getJobById(Long id) {
-        return jobRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Job not found"));
+       return jobRepository.findById(id)
+        .orElseThrow(() -> new JobNotFoundException(
+                "Job not found with id: " + id));
     }
 
     public Job updateJob(Long id, Job updatedJob) {
