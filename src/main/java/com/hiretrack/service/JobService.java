@@ -1,4 +1,3 @@
-
 package com.hiretrack.service;
 
 import com.hiretrack.entity.Job;
@@ -16,38 +15,47 @@ public class JobService {
         this.jobRepository = jobRepository;
     }
 
-    // Create Job
     public Job createJob(Job job) {
         return jobRepository.save(job);
     }
 
-    // Get All Jobs
     public List<Job> getAllJobs() {
         return jobRepository.findAll();
     }
 
-    // Get Job By ID
     public Job getJobById(Long id) {
         return jobRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Job not found with id: " + id));
+                .orElseThrow(() -> new RuntimeException("Job not found"));
     }
 
-    // Update Job
     public Job updateJob(Long id, Job updatedJob) {
-        Job existingJob = getJobById(id);
+        Job job = getJobById(id);
 
-        existingJob.setTitle(updatedJob.getTitle());
-        existingJob.setCompany(updatedJob.getCompany());
-        existingJob.setLocation(updatedJob.getLocation());
-        existingJob.setDescription(updatedJob.getDescription());
-        existingJob.setSalary(updatedJob.getSalary());
+        job.setTitle(updatedJob.getTitle());
+        job.setCompany(updatedJob.getCompany());
+        job.setLocation(updatedJob.getLocation());
+        job.setDescription(updatedJob.getDescription());
+        job.setSalary(updatedJob.getSalary());
 
-        return jobRepository.save(existingJob);
+        return jobRepository.save(job);
     }
 
-    // Delete Job
     public void deleteJob(Long id) {
-        Job existingJob = getJobById(id);
-        jobRepository.delete(existingJob);
+        jobRepository.deleteById(id);
+    }
+
+    // Search by job title
+    public List<Job> searchByTitle(String title) {
+        return jobRepository.findByTitleContainingIgnoreCase(title);
+    }
+
+    // Search by company
+    public List<Job> searchByCompany(String company) {
+        return jobRepository.findByCompanyContainingIgnoreCase(company);
+    }
+
+    // Filter by location
+    public List<Job> filterByLocation(String location) {
+        return jobRepository.findByLocationContainingIgnoreCase(location);
     }
 }
